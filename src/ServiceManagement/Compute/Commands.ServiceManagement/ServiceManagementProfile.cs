@@ -568,6 +568,17 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement
 
             Mapper.CreateMap<NSM.RoleInstance.PublicIP, PVM.PublicIP>();
             Mapper.CreateMap<NSM.ConfigurationSet.PublicIP, PVM.AssignPublicIP>();
+
+            // NetworkInterface
+            Mapper.CreateMap<PVM.AssignNetworkInterface, NSM.NetworkInterface>();
+            Mapper.CreateMap<PVM.AssignIPConfiguration, NSM.IPConfiguration>();
+            Mapper.CreateMap<PVM.NetworkInterface, NSM.NetworkInterface>();
+            Mapper.CreateMap<PVM.IPConfiguration, NSM.IPConfiguration>();
+            
+            Mapper.CreateMap<NSM.NetworkInterface, PVM.AssignNetworkInterface>();
+            Mapper.CreateMap<NSM.IPConfiguration, PVM.AssignIPConfiguration>();
+            Mapper.CreateMap<NSM.NetworkInterface, PVM.NetworkInterface>();
+            Mapper.CreateMap<NSM.IPConfiguration, PVM.IPConfiguration>();
         }
     }
 }
