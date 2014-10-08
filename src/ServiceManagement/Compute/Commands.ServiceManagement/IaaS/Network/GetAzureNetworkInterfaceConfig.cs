@@ -17,37 +17,44 @@ using System;
 using System.Linq;
 using System.Management.Automation;
 using Microsoft.WindowsAzure.Commands.ServiceManagement.Model;
-using Microsoft.WindowsAzure.Commands.ServiceManagement.Properties;
 
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Network
 {
-    [Cmdlet(VerbsCommon.Get, NetworkInterfaceConfig), OutputType(typeof(IPersistentVM))]
-    public class GetAzureNetworkInterfaceConfig : VirtualMachineConfigurationCmdletBase
+    [Cmdlet(VerbsCommon.Get, NetworkInterfaceConfig), OutputType(typeof(NetworkInterface))]
+    public class GetAzureNetworkInterfaceConfig : PSCmdlet
     {
+        protected const string NetworkInterfaceConfig = "AzureNetworkInterfaceConfig";
+
         [Parameter(Position = 1, Mandatory = false, HelpMessage = "The NetworkInterface Name.")]
         public string Name { get; set; }
 
+        [Parameter(
+            Mandatory = true,
+            ValueFromPipeline = true,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = "Virtual Machine to update.")]
+        [ValidateNotNullOrEmpty]
+        [Alias("InputObject")]
+        public PersistentVMRoleContext VM
+        {
+            get;
+            set;
+        }
+
         protected override void ProcessRecord()
         {
-            base.ProcessRecord();
-
-            var networkConfiguration = GetNetworkConfiguration();
-            if (networkConfiguration == null)
-            {
-                throw new ArgumentOutOfRangeException(Resources.NetworkConfigurationNotFoundOnPersistentVM);
-            }
-
-            if (networkConfiguration.NetworkInterfaces != null)
+            var networkInterfaces = VM.NetworkInterfaces;
+            
+            if (networkInterfaces != null)
             {
                 if (string.IsNullOrEmpty(Name))
                 {
-                    WriteObject(networkConfiguration.NetworkInterfaces, true);
+                    WriteObject(networkInterfaces, true);
                 }
                 else
                 {
-                    var nics =
-                        networkConfiguration.NetworkInterfaces.Where(
-                            n => string.Equals(n.Name, this.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+                    var nics = networkInterfaces.Where(
+                        n => string.Equals(n.Name, this.Name, StringComparison.OrdinalIgnoreCase)).ToList();
 
                     if (nics.Count != 0)
                     {

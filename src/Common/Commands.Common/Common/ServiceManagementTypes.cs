@@ -2471,10 +2471,10 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Model
         [DataMember(EmitDefaultValue = false, Order = 1)]
         public string Name { get; set; }
 
-        //[DataMember(EmitDefaultValue = false, Order = 2)]
-        //public string MacAddress { get; set; }
-
         [DataMember(EmitDefaultValue = false, Order = 2)]
+        public string MacAddress { get; set; }
+
+        [DataMember(EmitDefaultValue = false, Order = 3)]
         public IPConfigurationList IpConfigurations { get; set; }
         
         public ExtensionDataObject ExtensionData { get; set; }
@@ -2493,7 +2493,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Model
         public string SubnetName { get; set; }
 
         [DataMember(EmitDefaultValue = false, Order = 2)]
-        public string StaticVirtualNetworkIPAddress { get; set; }
+        public string Address { get; set; }
 
         public ExtensionDataObject ExtensionData { get; set; }
     }

@@ -572,13 +572,13 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement
             // NetworkInterface
             Mapper.CreateMap<PVM.AssignNetworkInterface, NSM.NetworkInterface>();
             Mapper.CreateMap<PVM.AssignIPConfiguration, NSM.IPConfiguration>();
-            Mapper.CreateMap<PVM.NetworkInterface, NSM.NetworkInterface>();
-            Mapper.CreateMap<PVM.IPConfiguration, NSM.IPConfiguration>();
+            Mapper.CreateMap<PVM.NetworkInterface, NSM.NetworkInterfaceInstance>();
+            Mapper.CreateMap<PVM.IPConfiguration, NSM.IPConfigurationInstance>();
             
             Mapper.CreateMap<NSM.NetworkInterface, PVM.AssignNetworkInterface>();
             Mapper.CreateMap<NSM.IPConfiguration, PVM.AssignIPConfiguration>();
-            Mapper.CreateMap<NSM.NetworkInterface, PVM.NetworkInterface>();
-            Mapper.CreateMap<NSM.IPConfiguration, PVM.IPConfiguration>();
+            Mapper.CreateMap<NSM.NetworkInterfaceInstance, PVM.NetworkInterface>();
+            Mapper.CreateMap<NSM.IPConfigurationInstance, PVM.IPConfiguration>();
         }
     }
 }
